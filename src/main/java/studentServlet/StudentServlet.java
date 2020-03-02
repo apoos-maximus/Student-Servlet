@@ -10,6 +10,7 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
-
+            String reqst = req.getQueryString();
+            resp.getWriter().write(reqst);
     }
 }
