@@ -10,12 +10,12 @@ public class StudentDb{
     public StudentDb(){
         db = new HashMap<>();
     }
-    public String insertRow(Student stud) {
+    public String insertRow(Student stud) { //post
         db.put(stud.getRollNo(),stud);
         return "true";
     }
-    public Student getByRollNo(String roll) {
-        if(db.containsKey(roll)){
+    public Student getByRollNo(String roll) { //get
+        if(db.containsKey(roll)){ // basics
             return db.get(roll);
         }
         else return new Student("empty","empty","empty");
