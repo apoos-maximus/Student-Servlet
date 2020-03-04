@@ -12,6 +12,16 @@
     <filter-name>StudentRequestFilter</filter-name>
     <url-pattern>/roll</url-pattern>
   </filter-mapping>
+
+  <filter>
+    <filter-name>SpecialCharacterFilter</filter-name>
+    <filter-class>studentServlet.SpecialCharacterFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SpecialCharacterFilter</filter-name>
+    <url-pattern>/roll</url-pattern>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>StudentServlet</servlet-name>
     <servlet-class>studentServlet.StudentServlet</servlet-class>

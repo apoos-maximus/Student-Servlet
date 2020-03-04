@@ -18,6 +18,9 @@ public class StudentRequestFilter implements Filter {
 //        b = c[1];
         if("".equals(a)){
             filterChain.doFilter(servletRequest,servletResponse);
+        } else {
+            System.out.println("false" + "---" + this);
+            servletResponse.getWriter().write("invalid format !");
         }
 
     }

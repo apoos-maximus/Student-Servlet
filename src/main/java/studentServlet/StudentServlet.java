@@ -22,7 +22,7 @@ public class StudentServlet extends HttpServlet  {
 //        super.doPost(req, resp);
 
         Student stud = new Student(req.getParameter("name"),req.getParameter("university"),req.getParameter("rollNo"));
-        context.log(" POST " + "\n" + stud.stringify());
+        System.out.println(" POST " + "\n" + stud.stringify());
         resp.getWriter().write(db.insertRow(stud));
     }
 
@@ -31,7 +31,7 @@ public class StudentServlet extends HttpServlet  {
             Student stud;
             String rolno = req.getParameter("rollNo");
             stud = db.getByRollNo(rolno);
-            context.log("GET /roll/rollNo?=" + rolno);
+            System.out.println("GET /roll/rollNo?=" + rolno);
             resp.getWriter().write(stud.stringify());
 
     }
