@@ -19,16 +19,22 @@ public class PostFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         filterChain.doFilter(servletRequest,servletResponse);
-        String resp = (String) servletRequest.getAttribute("resp");
-        System.out.println(resp);
-        if(servletRequest.getContentType().equals("application/xml")){
-            Gson gson = new Gson();
-            Student stud = gson.fromJson(resp,Student.class) ;
-
-            XmlMapper xmlMapper = new XmlMapper();
-            servletResponse.getWriter().write(xmlMapper.writeValueAsString(stud));
-        } else{
-            servletResponse.getWriter().write(resp);
+        System.out.println(servletRequest.getContentType());
+        if(servletRequest.getContentType() != null){
+            if(servletRequest.getContentType().equals("application/xml")){
+                XmlMapper xmlMapper = new XmlMapper();
+                servletResponse.getWriter().write(xmlMapper.writeValueAsString(servletRequest.getAttribute("resp")));
+            }
+            else if(servletRequest.getContentType().equals("application/json")){
+                Gson gson = new Gson();
+                servletResponse.getWriter().write(gson.toJson(servletRequest.getAttribute("resp")));
+            }
+            else {
+                servletResponse.getWriter().write(servletRequest.getAttribute("resp").toString());
+            }
+        }
+        else{
+            servletResponse.getWriter().write("Content-Type header required !");
         }
     }
 

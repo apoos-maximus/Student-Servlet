@@ -30,7 +30,7 @@ public class StudentServlet extends HttpServlet  {
             String rolno = req.getParameter("rollNo");
             stud = db.getByRollNo(rolno);
             System.out.println("GET /roll/rollNo?=" + rolno);
-            req.setAttribute("resp",stud.stringify());
+            req.setAttribute("resp",stud);
             resp.setContentType(req.getContentType());
     }
 
