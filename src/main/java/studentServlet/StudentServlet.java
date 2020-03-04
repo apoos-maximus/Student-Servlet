@@ -15,14 +15,12 @@ import java.io.IOException;
 
 public class StudentServlet extends HttpServlet  {
     StudentDb db;
-
     ServletContext context;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doPost(req, resp);
-
         Student stud = new Student(req.getParameter("name"),req.getParameter("university"),req.getParameter("rollNo"));
-        System.out.println(" POST " + "\n" + stud.stringify(req.getContentType()));
+        System.out.println( " POST " + "\n" + stud.stringify() );
         resp.getWriter().write(db.insertRow(stud));
     }
 
@@ -32,11 +30,9 @@ public class StudentServlet extends HttpServlet  {
             String rolno = req.getParameter("rollNo");
             stud = db.getByRollNo(rolno);
             System.out.println("GET /roll/rollNo?=" + rolno);
+            req.setAttribute("resp",stud.stringify());
             resp.setContentType(req.getContentType());
-            resp.getWriter().write(stud.stringify(req.getContentType()));
     }
-
-
 
     @Override
     public void init() throws ServletException {

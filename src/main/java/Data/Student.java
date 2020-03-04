@@ -29,24 +29,16 @@ public class Student {
     }
 
 
-    public String stringify (String format)throws IOException {
-        if(!format.equals(null)){
-            if(format.equals("application/xml")){
-                ObjectMapper jsonMapper  = new ObjectMapper();
-                XmlMapper xmlMapper = new XmlMapper();
-                return xmlMapper.writeValueAsString(this);
-            } else {
+    public String stringify ()throws IOException {
                 JsonObject stud = new JsonObject();
                 stud.addProperty("Name",name);
                 stud.addProperty("University",university);
                 stud.addProperty("RollNo",rollNo);
                 return stud.toString();
-            }
-        } else {
-            return "unknown format requested";
+
         }
 
-    }
+
 
     public String getRollNo(){
         return rollNo;

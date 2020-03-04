@@ -1,5 +1,10 @@
 package studentServlet;
 
+import Data.Student;
+import com.fasterxml.jackson.xml.XmlMapper;
+import com.google.gson.Gson;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import javax.servlet.*;
 import java.io.IOException;
 
@@ -12,14 +17,19 @@ public class PostFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        if(servletRequest.getContentType().equals("application/xml")){
-//            System.out.println("application/xml");
-//            servletResponse.setContentType("application/xml");
-//        } else {
-//            System.out.println("application/json");
-//            servletResponse.setContentType("application/json");
-//        }
+
         filterChain.doFilter(servletRequest,servletResponse);
+        String resp = (String) servletRequest.getAttribute("resp");
+        System.out.println(resp);
+        if(servletRequest.getContentType().equals("application/xml")){
+            Gson gson = new Gson();
+            Student stud = gson.fromJson(resp,Student.class) ;
+
+            XmlMapper xmlMapper = new XmlMapper();
+            servletResponse.getWriter().write(xmlMapper.writeValueAsString(stud));
+        } else{
+            servletResponse.getWriter().write(resp);
+        }
     }
 
     @Override
