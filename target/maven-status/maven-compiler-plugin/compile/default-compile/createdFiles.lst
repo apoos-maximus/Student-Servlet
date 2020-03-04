@@ -1,5 +1,6 @@
 studentServlet\SpecialCharacterFilter.class
 studentServlet\StudentServlet.class
 studentServlet\StudentRequestFilter.class
+studentServlet\PostFilter.class
 Data\Student.class
 db\StudentDb.class

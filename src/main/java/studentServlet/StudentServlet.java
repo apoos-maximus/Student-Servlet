@@ -3,14 +3,14 @@ package studentServlet;
 import Data.Student;
 import db.StudentDb;
 
-import javax.servlet.Filter;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
+
 
 
 public class StudentServlet extends HttpServlet  {
@@ -22,7 +22,7 @@ public class StudentServlet extends HttpServlet  {
 //        super.doPost(req, resp);
 
         Student stud = new Student(req.getParameter("name"),req.getParameter("university"),req.getParameter("rollNo"));
-        System.out.println(" POST " + "\n" + stud.stringify());
+        System.out.println(" POST " + "\n" + stud.stringify(req.getContentType()));
         resp.getWriter().write(db.insertRow(stud));
     }
 
@@ -32,8 +32,8 @@ public class StudentServlet extends HttpServlet  {
             String rolno = req.getParameter("rollNo");
             stud = db.getByRollNo(rolno);
             System.out.println("GET /roll/rollNo?=" + rolno);
-            resp.getWriter().write(stud.stringify());
-
+            resp.setContentType(req.getContentType());
+            resp.getWriter().write(stud.stringify(req.getContentType()));
     }
 
 

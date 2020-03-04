@@ -7,7 +7,7 @@ public class StudentRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        System.out.println("StudentRequestFilter initialized");
     }
 
     @Override

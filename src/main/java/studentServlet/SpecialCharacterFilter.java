@@ -20,7 +20,6 @@ public class SpecialCharacterFilter implements Filter {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
         Matcher matcher = pattern.matcher(rollNo);
         if (matcher.matches()){
-            System.out.println("true");
             filterChain.doFilter(servletRequest,servletResponse);
         } else {
             System.out.println("false" + "---" + this);
