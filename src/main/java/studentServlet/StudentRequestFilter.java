@@ -4,10 +4,11 @@ import javax.servlet.*;
 import java.io.IOException;
 
 public class StudentRequestFilter implements Filter {
-
+    ServletContext context;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("StudentRequestFilter initialized");
+        context = filterConfig.getServletContext();
+        context.log(this.getClass() + " init");
     }
 
     @Override
@@ -15,11 +16,10 @@ public class StudentRequestFilter implements Filter {
         String a,b, rollNoFilterParameter = servletRequest.getParameter("rollNo");
         String[] c = rollNoFilterParameter.split("RN",2);
         a = c[0];
-//        b = c[1];
         if("".equals(a)){
             filterChain.doFilter(servletRequest,servletResponse);
         } else {
-            System.out.println("false" + "---" + this);
+            context.log(this.getClass() + " doFilter :" + "wrong format");
             servletResponse.getWriter().write("invalid format !");
         }
 
@@ -27,6 +27,6 @@ public class StudentRequestFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        context.log(this.getClass() + " destroy");
     }
 }

@@ -6,9 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SpecialCharacterFilter implements Filter {
+    ServletContext context;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("special character filter initialised !");
+        context = filterConfig.getServletContext();
+        context.log(this.getClass() + " init");
     }
 
     @Override
@@ -22,13 +24,13 @@ public class SpecialCharacterFilter implements Filter {
         if (matcher.matches()){
             filterChain.doFilter(servletRequest,servletResponse);
         } else {
-            System.out.println("false" + "---" + this);
+            context.log(this.getClass() + " doFilter :" + " special characters not allowed");
             servletResponse.getWriter().write("special characters not allowed !");
         }
     }
 
     @Override
     public void destroy() {
-
+        context.log(this.getClass() + "destroy");
     }
 }

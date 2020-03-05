@@ -18,9 +18,8 @@ public class StudentServlet extends HttpServlet  {
     ServletContext context;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
         Student stud = new Student(req.getParameter("name"),req.getParameter("university"),req.getParameter("rollNo"));
-        System.out.println( " POST " + "\n" + stud.stringify() );
+        context.log( " POST " + "\n" + stud.stringify() );
         resp.getWriter().write(db.insertRow(stud));
     }
 
@@ -29,7 +28,7 @@ public class StudentServlet extends HttpServlet  {
             Student stud;
             String rolno = req.getParameter("rollNo");
             stud = db.getByRollNo(rolno);
-            System.out.println("GET /roll/rollNo?=" + rolno);
+            context.log("GET /roll/rollNo?=" + rolno);
             req.setAttribute("resp",stud);
             resp.setContentType(req.getContentType());
     }
@@ -39,15 +38,19 @@ public class StudentServlet extends HttpServlet  {
         super.init();
         db = new StudentDb();
         context = getServletContext();
+        context.log(this.getClass() + " StudentServlet");
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        context.log(this.getClass() + " service");
         super.service(req, resp);
     }
 
     @Override
     public void destroy() {
+        context.log(this.getClass() + " destroy");
         super.destroy();
     }
-}
+
+    }
