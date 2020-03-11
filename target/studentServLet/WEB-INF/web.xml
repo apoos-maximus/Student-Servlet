@@ -4,6 +4,26 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+    <param-name>properties</param-name>
+    <param-value>\WEB-INF\classes\props.txt</param-value>
+  </context-param>
+
+  <servlet>
+<!--this servlet gives out the contents of the file in resources-->
+    <servlet-name>ListenServlet</servlet-name>
+    <servlet-class>ListenServlet.ListenServlet</servlet-class>
+
+    <init-param>
+      <param-name>adminEmail</param-name>
+      <param-value>apoorv.99.sachan@gmail.com</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListenServlet</servlet-name>
+    <url-pattern>/listen</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>PostFilter</filter-name>
     <filter-class>studentServlet.PostFilter</filter-class>

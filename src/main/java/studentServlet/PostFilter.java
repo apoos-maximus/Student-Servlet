@@ -18,16 +18,17 @@ public class PostFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         filterChain.doFilter(servletRequest,servletResponse);
-        HttpServletRequest a = (HttpServletRequest) servletRequest;
-        if(a.getMethod().equals("GET")){
-            System.out.println("what ?");
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+
+        if(httpServletRequest.getMethod().equals("GET")){
             context.log(servletRequest.getContentType());
-            if(servletRequest.getContentType() != null){
-                if(servletRequest.getContentType().equals("application/xml")){
+            if(httpServletRequest.getHeader("Accept") != null){
+                servletResponse.setContentType(httpServletRequest.getHeader("Accept"));
+                if(httpServletRequest.getHeader("Accept").equals("application/xml")){
                     XmlMapper xmlMapper = new XmlMapper();
                     servletResponse.getWriter().write(xmlMapper.writeValueAsString(servletRequest.getAttribute("resp")));
                 }
-                else if(servletRequest.getContentType().equals("application/json")){
+                else if(httpServletRequest.getHeader("Accept").equals("application/json")){
                     Gson gson = new Gson();
                     servletResponse.getWriter().write(gson.toJson(servletRequest.getAttribute("resp")));
                 }
